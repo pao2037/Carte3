@@ -81,11 +81,12 @@
                 // Infobulle pour afficher le nom de l'établissement
                 const infowindow = new google.maps.InfoWindow({
                     content: `<div class="infowindow-content">${place.name}</div>`, // Nom du lieu
+                    disableAutoPan: true, // Désactiver le centrage automatique
+                    maxWidth: 150, // Largeur maximum de l'infobulle
                 });
 
-                marker.addListener("click", () => {
-                    infowindow.open(map, marker);
-                });
+                // Ouvrir l'infobulle en permanence
+                infowindow.open(map, marker);
             }
         }
     </script>
