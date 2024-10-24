@@ -9,10 +9,6 @@
             height: 100vh; /* La carte prend toute la hauteur de la fenêtre */
             width: 100%; /* La carte prend toute la largeur */
         }
-        .infowindow-content {
-            text-align: center; /* Centrer le texte dans l'infobulle */
-            min-width: 100px; /* Largeur minimale de l'infobulle */
-        }
     </style>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCDLhzot0eybVpDE_7GFZsVfUGET4fbNew&libraries=places"></script>
     <script>
@@ -78,15 +74,18 @@
                     },
                 });
 
-                // Infobulle pour afficher le nom de l'établissement
-                const infowindow = new google.maps.InfoWindow({
-                    content: `<div class="infowindow-content">${place.name}</div>`, // Nom du lieu
-                    disableAutoPan: true, // Désactiver le centrage automatique
-                    maxWidth: 150, // Largeur maximum de l'infobulle
+                // Ajouter un label sous le marqueur
+                const label = new google.maps.InfoWindow({
+                    content: `<div style="text-align: center;">${place.name}</div>`, // Nom du lieu
                 });
 
-                // Ouvrir l'infobulle en permanence
-                infowindow.open(map, marker);
+                // Afficher le label immédiatement sous le marqueur
+                label.open(map, marker);
+
+                // Éviter que le label se ferme
+                google.maps.event.addListener(marker, 'click', function() {
+                    label.open(map, marker);
+                });
             }
         }
     </script>
